@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@symfony/webpack-encore": "^0.22.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.0.1",
+    "webpack-notifier": "^1.6.0"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-bootstrap-table-next": "^1.4.2",
+    "react-bootstrap-table2-filter": "^1.1.0",
+    "react-bootstrap-table2-paginator": "^1.0.4",
+    "react-dom": "^16.6.3"
+  }
+}
