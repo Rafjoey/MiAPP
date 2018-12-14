@@ -20,12 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/index", name="api_v1")
+     * @Route("/accidentes", name="api_v1")
      */
     public function index() {
-//        $foaf = new EasyRdf_Graph('http://njh.me/foaf.rdf');
-//        $me = $foaf->primaryTopic();
-
         return $this->render('base.html.twig');
     }
 }

@@ -2,6 +2,7 @@
 
 body {
   padding: 25px;
+  margin-bottom: 70px;
 }
 
 thead {
@@ -21,5 +22,9 @@ thead {
 #titulo {
   text-align: center;
   margin-bottom: 25px;
-  margin-top: -46px;
+}
+
+#grupo {
+  right: 25px;
+  position: absolute;
 }

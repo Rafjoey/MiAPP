@@ -10,146 +10,6 @@ const headerSortingClasses = (column, sortOrder) => (
     sortOrder === 'asc' ? 'asc' : 'desc'
 )
 
-const columnas = [
-    {
-        dataField: 'FECHA',
-        text: 'Fecha',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por fecha'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'RANGO_HORARIO',
-        text: 'Rango horario',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por rango horario'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'DISTRITO',
-        text: 'Distrito',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por distrito'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'LUGAR_ACCIDENTE',
-        text: 'Lugar accidente',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por lugar'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'N',
-        text: 'Nº Accidentes',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por nº de accidentes'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'N_VICTIMAS',
-        text: 'Nº Victimas',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por nº de victimas'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'TIPO_ACCIDENTE',
-        text: 'Tipo accidente',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por tipo accidente'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'SEXO',
-        text: 'Sexo',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por sexo'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    },
-    {
-        dataField: 'TRAMO_EDAD',
-        text: 'Tramo edad',
-        headerSortingClasses,
-        editable: false,
-        sort: true,
-        filter: textFilter({
-            placeholder: 'Filtrar por tramo edad'
-        }),
-        headerAlign: 'center',
-        align: 'center',
-        classes: 'centrado',
-        headerClasses: 'centrado'
-    }
-]
-
-const options = {
-    paginationSize: 5,
-    pageStartIndex: 1,
-    hideSizePerPage: true, // Hide the sizePerPage dropdown always
-    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    nextPageTitle: 'Siguiente página',
-    prePageTitle: 'Página anterior',
-    firstPageTitle: 'Primera página',
-    lastPageTitle: 'Última página'
-}
-
 const datos = [
     {
         "FECHA": "01/01/2018 0:00",
@@ -6094,6 +5954,153 @@ const datos = [
     }
 ]
 
+const columnas = [
+    {
+        dataField: 'FECHA',
+        text: 'Fecha',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por fecha'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'RANGO_HORARIO',
+        text: 'Rango horario',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por rango horario'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'DISTRITO',
+        text: 'Distrito',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por distrito'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'LUGAR_ACCIDENTE',
+        text: 'Lugar accidente',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por lugar'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'N',
+        text: 'Nº Accidentes',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por nº de accidentes'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'N_VICTIMAS',
+        text: 'Nº Victimas',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por nº de victimas'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'TIPO_ACCIDENTE',
+        text: 'Tipo accidente',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por tipo accidente'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'SEXO',
+        text: 'Sexo',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por sexo'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    },
+    {
+        dataField: 'TRAMO_EDAD',
+        text: 'Tramo edad',
+        headerSortingClasses,
+        editable: false,
+        sort: true,
+        filter: textFilter({
+            placeholder: 'Filtrar por tramo edad'
+        }),
+        headerAlign: 'center',
+        align: 'center',
+        classes: 'centrado',
+        headerClasses: 'centrado'
+    }
+]
+
+const options = {
+    paginationSize: 5,
+    pageStartIndex: 1,
+    hideSizePerPage: false, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    nextPageTitle: 'Siguiente página',
+    prePageTitle: 'Página anterior',
+    firstPageTitle: 'Primera página',
+    lastPageTitle: 'Última página',
+    sizePerPageList: [{
+        text: '5', value: 5
+    }, {
+        text: '10', value: 10
+    }, {
+        text: 'Todos (' + datos.length + ')', value: datos.length
+    }]
+}
+
 class Contenido extends React.Component {
     constructor (props) {
         super(props)
@@ -6107,7 +6114,7 @@ class Contenido extends React.Component {
             columns={columnas}
             filter={filterFactory()}
             pagination={paginationFactory(options)}
-            // striped
+            striped
             hover
             condensed
             noDataIndication={'No se encontraron resultados'}
