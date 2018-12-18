@@ -8,7 +8,7 @@ Para poder usar la API se ha de descargar:
 - [COMPOSER](https://getcomposer.org/) e instalarlo.
 - PHP, en nuestro caso hemos usado [XAMPP](https://www.apachefriends.org/es/index.html).
 
-Añadir la variable de entorno ## C:\composer
+Añadir la variable de entorno C:\composer
 
 Para instalar las dependencias se ha de descargar el repositorio y en el cmd desde su raíz escribir:
 
