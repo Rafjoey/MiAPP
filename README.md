@@ -3,20 +3,18 @@
 ## Instalación de dependencias
 
 Para poder usar la API se ha de descargar:
-```bash
+
 - [Nuestra API](https://github.com/Rafjoey/API.git).
 - [COMPOSER](https://getcomposer.org/) e instalarlo.
 - PHP, en nuestro caso hemos usado [XAMPP](https://www.apachefriends.org/es/index.html).
-```
 
 Añadir la variable de entorno ## C:\composer
 
 Para instalar las dependencias se ha de descargar el repositorio y en el cmd desde su raíz escribir:
-```bash
+
 - Abrir el cmd en la raiz del respositorio.
 - Instalar las dependencias usando el comando: 'composer update'.
 - Una vez instaladas las dependencias, arrancar el servidor con el comando: 'php bin/console server:run'.
-```
 
 ## Cambio de versión
 
