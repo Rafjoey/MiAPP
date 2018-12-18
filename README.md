@@ -22,7 +22,7 @@ Acceder a la [API](http://localhost:8000/api/accidentes)
 
 ## Cambio de versión
 
-Esta versiónde la API es una mejora respecto a la mostrada el día de la presentación.
+Esta versión de la API es una mejora respecto a la mostrada el día de la presentación.
 
 Comparando estas versiones se han añadido:
 ```bash
