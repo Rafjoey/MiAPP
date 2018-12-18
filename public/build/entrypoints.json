@@ -1,0 +1,19 @@
+{
+  "entrypoints": {
+    "js/js": {
+      "js": [
+        "/build/js/js.js"
+      ]
+    },
+    "js/bootstrap.min": {
+      "js": [
+        "/build/js/bootstrap.min.js"
+      ]
+    },
+    "css/css": {
+      "css": [
+        "/build/css/css.css"
+      ]
+    }
+  }
+}

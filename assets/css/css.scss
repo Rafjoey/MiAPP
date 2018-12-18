@@ -5,9 +5,17 @@ body {
   margin-bottom: 70px;
 }
 
+table {
+  font-size: smaller;
+}
+
 thead {
   cursor: pointer;
   background-color: aliceblue;
+}
+
+button {
+  cursor: pointer;
 }
 
 .centrado {

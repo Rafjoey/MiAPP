@@ -10,6 +10,7 @@ Encore
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
     .addEntry('js/js', './assets/js/js.jsx')
+    .addEntry('js/bootstrap.min', './assets/js/bootstrap.min.jsx')
     .addStyleEntry('css/css', './assets/css/css.scss')
     // .addStyleEntry('css/font-awesome', './assets/ge/css/font-awesome/scss/font-awesome.scss')
 
