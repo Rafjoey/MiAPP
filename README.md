@@ -5,9 +5,9 @@ Esta versiónde la API es una mejora respecto a la mostrada el día de la presen
 Comparando estas versiones se han añadido:
 ```bash
   1 - Columna VER ACCIDENTE (URI): 
-      Donde visualizaremos un botón correspondiente a cada fila. Tras hacer click nos abrirá una nueva pestaña en la
-      cual por motivos que desconocemos, inicialmente no muestra nada, pero tras pulsar F5 atacará a la URI con el
-      objeto seleccionado y mostrando su información.
+      Donde visualizaremos un botón correspondiente a cada fila. Tras hacer click nos abrirá una nueva pestaña en
+      la cual por motivos que desconocemos, inicialmente no muestra nada, pero tras pulsar F5 atacará a la URI
+      con el objeto seleccionado y mostrando su información.
 ```
 ```bash     
   2 - Columna FECHA:
