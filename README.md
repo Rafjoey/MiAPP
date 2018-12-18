@@ -1,4 +1,4 @@
-# API
+# API Grupo 8
 
 Esta versiónde la API es una mejora respecto a la mostrada el día de la presentación.
 
@@ -20,4 +20,12 @@ Comparando estas versiones se han añadido:
 ```
 ```bash  
   4 - Se ha cambiado la parte de backend en controladores y servicios.
+```
+
+## Integrantes del grupo 8
+```bash  
+  Adrián Álvarez Atienza
+  Rafael Aineto Guerrero
+  Alejandro Bravo Merodio
+  Tomás Miranda Perales
 ```
