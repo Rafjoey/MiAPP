@@ -16,7 +16,7 @@ Para instalar las dependencias se ha de descargar el repositorio y en el cmd des
 - Instalar las dependencias usando el comando: 'composer update'.
 - Una vez instaladas las dependencias, arrancar el servidor con el comando: 'php bin/console server:run'.
 
-## Cambio de versión
+## Acceso a la API
 
 Acceder a la [API](http://localhost:8000/api/accidentes)
 
