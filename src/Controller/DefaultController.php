@@ -10,35 +10,41 @@
 
 namespace App\Controller;
 
+use App\Service\API;
 use App\Service\RDFService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api", name="api")
+/*
+ * Controlador de vistas
  */
+
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/accidentes", name="api_v1")
+     * @Route("/", name="inicio")
      */
-    public function index() {
-        return $this->render('base.html.twig');
+    public function inicio() {
+        return $this->render('login.html.twig');
     }
 
     /**
-     * @Route("/accidentes/{id}", name="", methods={"GET"})
-     * @param string $id
-     * @return Response
+     * @Route("/menu", name="menu")
      */
-    public function rol(string $id)
-    {
-        $response = null;
+    public function menu() {
+        if ($this->userLogCheck()) {
+            return $this->render('menu.html.twig');
+        }
+        return $this->redirectToRoute('inicio');
+    }
 
-        $service = new RDFService();
-        $response = $service->getInfo($id);
+    private function userLogCheck(){
 
-        return $this->render('dato.html.twig', array('dato' => $response));
+        $token = $_COOKIE['token'] ?? null;
+        $usr = $_COOKIE['usuario'] ?? null;
+        $usuarios = new API();
+        if(is_null($token) || is_null($usr)) return false;
+        else return $usuarios->ckeckSession($token, $usr);
     }
 }

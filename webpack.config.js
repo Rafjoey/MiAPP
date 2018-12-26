@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+let Encore = require('@symfony/webpack-encore')
 
 Encore
     // directory where compiled assets will be stored
@@ -10,9 +10,15 @@ Encore
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
     .addEntry('js/js', './assets/js/js.jsx')
+    .addEntry('js/inicio', './assets/js/inicio.jsx')
+    .addEntry('js/menu', './assets/js/menu.jsx')
     .addEntry('js/bootstrap.min', './assets/js/bootstrap.min.jsx')
-    .addStyleEntry('css/css', './assets/css/css.scss')
-    // .addStyleEntry('css/font-awesome', './assets/ge/css/font-awesome/scss/font-awesome.scss')
+    // .addEntry('js/canvasjs.min', './assets/js/canvasjs.min.jsx')
+    // .addEntry('js/canvasjs.react', './assets/js/canvasjs.react.jsx')
+    .addStyleEntry('css/comun', './assets/css/comun.scss')
+    .addStyleEntry('css/inicio', './assets/css/inicio.scss')
+    .addStyleEntry('css/menu', './assets/css/menu.scss')
+    .addStyleEntry('css/font-awesome', './assets/css/font-awesome/scss/font-awesome.scss')
 
     // uncomment if you use Sass/SCSS files
     .enableSassLoader(function (sassOptions) {}, {

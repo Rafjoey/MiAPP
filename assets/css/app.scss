@@ -1,0 +1,92 @@
+.card-header{
+  padding: 0.5rem 0.5rem !important;
+}
+
+.btn-link{
+  text-decoration: none !important;
+}
+
+#headingOne{
+  margin-left: 0px;
+}
+
+.elementoAcordeon {
+  margin-bottom: 10px;
+  border-right: solid 1px #75ff75db;
+}
+
+.accionIndividual{
+  margin-left: 10px;
+}
+
+#nombreUsuario{
+  color: white;
+}
+
+#totalIngresos{
+  right: 30px;
+  position: absolute;
+  margin: 10px 0px 0 0;
+}
+
+.elementosCollapse {
+  padding: 20px 0 0 50px;
+  background-color: #abfbff73;
+}
+
+#cabeceraInformacion{
+  padding: 15px;
+}
+
+#informacion{
+  padding: 15px;
+}
+
+#contenedorInformacion{
+  background-color: #80808036;
+}
+
+//.elementosCollapse {
+//  padding: 20px 0px 0px 50px;
+//  background: linear-gradient(-45deg, #ffece6, #ffc5c8, #a6e7ff, #85ffe2);
+//  background-size: 200% 200%;
+//  -webkit-animation: Gradient 10s ease infinite;
+//  -moz-animation: Gradient 10s ease infinite;
+//  animation: Gradient 10s ease infinite;
+//}
+//
+//@-webkit-keyframes Gradient {
+//  0% {
+//    background-position: 0% 50%
+//  }
+//  50% {
+//    background-position: 100% 50%
+//  }
+//  100% {
+//    background-position: 0% 50%
+//  }
+//}
+//
+//@-moz-keyframes Gradient {
+//  0% {
+//    background-position: 0% 50%
+//  }
+//  50% {
+//    background-position: 100% 50%
+//  }
+//  100% {
+//    background-position: 0% 50%
+//  }
+//}
+//
+//@keyframes Gradient {
+//  0% {
+//    background-position: 0% 50%
+//  }
+//  50% {
+//    background-position: 100% 50%
+//  }
+//  100% {
+//    background-position: 0% 50%
+//  }
+//}

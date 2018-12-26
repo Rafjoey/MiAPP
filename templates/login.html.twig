@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href='{{ asset('build/css/inicio.css') }}'>
+{% endblock %}
+
+{% block body %}
+    <div class="container" id="contenedorLogin">
+        <form class="form-signin" autocomplete="on" role="form">
+            <h2 class="form-signin-heading"> Login </h2>
+            <label for="username" class="sr-only"> Usuario </label>
+            <input type="user" id="email" name="username" class="form-control" placeholder="Usuario" required autofocus>
+            <label for="inputPassword" class="sr-only"> Contraseña </label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña"
+                   required>
+            <div class="row">
+                <div class="col checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Recordar
+                    </label>
+                </div>
+                <div class="col" id="btnLogin"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/inicio.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href='{{ asset('build/css/menu.css') }}'>
+{% endblock %}
+
+{% block title %}
+    <span id="title"></span>
+{% endblock %}
+
+{% block usuario %}
+    <div id="nombreUsuario"></div>
+{% endblock %}
+
+{% block body %}
+
+    {#<div class="d-flex justify-content-between">#}
+    <div class="accordion" id="acordeonMenu">
+        <div class="card">
+            <div class="card-header row" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCC" aria-expanded="true" aria-controls="collapseCC">
+                        <i class="fa fa-credit-card fa-sm"></i>
+                        Cuentas corrientes
+                    </button>
+                </h2>
+                <div id="totalIngresos"></div>
+            </div>
+
+            <div id="collapseCC" class="collapse elementosCollapse" aria-labelledby="headingOne" data-parent="#acordeonMenu">
+                <div id="cc"></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseAcciones" aria-expanded="false" aria-controls="collapseAcciones">
+                        <i class="fa fa-handshake-o fa-sm"></i>
+                        Acciones
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseAcciones" class="collapse elementosCollapse" aria-labelledby="headingTwo" data-parent="#acordeonMenu">
+                <div id="acciones"></div>
+            </div>
+        </div>
+        {#<div class="card">#}
+            {#<div class="card-header" id="headingThree">#}
+                {#<h2 class="mb-0">#}
+                    {#<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseHistorico" aria-expanded="false" aria-controls="collapseHistorico">#}
+                        {#<i class="fa fa-area-chart fa-sm"></i>#}
+                        {#Histórico#}
+                    {#</button>#}
+                {#</h2>#}
+            {#</div>#}
+            {#<div id="collapseHistorico" class="collapse elementosCollapse" aria-labelledby="headingThree" data-parent="#acordeonMenu">#}
+                {#<div id="historico"></div>#}
+            {#</div>#}
+        {#</div>#}
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBolsa" aria-expanded="false" aria-controls="collapseBolsa">
+                        <i class="fa fa-building-o"></i>
+                        Bolsa
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseBolsa" class="collapse elementosCollapse" aria-labelledby="headingBolsa" data-parent="#acordeonMenu">
+                <div id="bolsa"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contenedorInformacion">
+        <div id="cabeceraInformacion"></div>
+        <div id="informacion"></div>
+    </div>
+
+    {#</div>#}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/menu.js') }}"></script>
+{% endblock %}

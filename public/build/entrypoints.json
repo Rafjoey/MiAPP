@@ -5,14 +5,39 @@
         "/build/js/js.js"
       ]
     },
+    "js/inicio": {
+      "js": [
+        "/build/js/inicio.js"
+      ]
+    },
+    "js/menu": {
+      "js": [
+        "/build/js/menu.js"
+      ]
+    },
     "js/bootstrap.min": {
       "js": [
         "/build/js/bootstrap.min.js"
       ]
     },
-    "css/css": {
+    "css/comun": {
       "css": [
-        "/build/css/css.css"
+        "/build/css/comun.css"
+      ]
+    },
+    "css/inicio": {
+      "css": [
+        "/build/css/inicio.css"
+      ]
+    },
+    "css/menu": {
+      "css": [
+        "/build/css/menu.css"
+      ]
+    },
+    "css/font-awesome": {
+      "css": [
+        "/build/css/font-awesome.css"
       ]
     }
   }
