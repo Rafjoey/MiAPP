@@ -80,4 +80,29 @@ class Bolsa
 
         return $response;
     }
+
+    public function anadirEmpresa($datos){
+
+        $response = false;
+
+        try {
+            $mg = $this->managerRegistry->getManager();
+            $empresa = new \App\Entity\Bolsa();
+
+            $empresa->setNombreempresa($datos['nombre']);
+            $empresa->setCodigoempresa($datos['codigo']);
+            $empresa->setValordia($datos['valor']);
+
+            $mg->persist($empresa);
+            $mg->flush();
+
+            $response = true;
+        }
+        catch (Exception $exception) {
+            print_r($exception->getMessage()); // DEBUGGING
+            return $response;
+        }
+
+        return $response;
+    }
 }

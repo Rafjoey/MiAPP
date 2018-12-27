@@ -504,6 +504,187 @@ class TotalIngresos extends React.Component {
     }
 }
 
+class BotonAgregarValorDia extends React.Component {
+    constructor (props) {
+        super(props)
+    }
+
+    agregar() {
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let cabeceraModal = <h5 className={'modal-title'} id={'modalCenterTitle'}>Añadir valor día</h5>
+        let contenidoModal = <strong> Contenido modal añadir valor día </strong>
+        ReactDOM.render(<CabeceraModal cabeceraModal={cabeceraModal} />, document.getElementById('cabeceraModal'))
+        ReactDOM.render(<ContenidoModal contenidoModal={contenidoModal} />, document.getElementById('contenidoModal'))
+    }
+
+    render () {
+        return (
+            <button type={'button'} id={'botonAgregarValorDia'} className={'btn btn-primary'} data-toggle={'modal'} data-target={'#modalCenter'} onClick={() => this.agregar()}>
+                Agregar valor día
+            </button>
+        )
+    }
+}
+
+class BotonAgregarEmpresa extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = ({
+            nombre: '',
+            codigo: '',
+            valor: 0
+        })
+    }
+
+    mostrarModal() {
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let cabeceraModal = <h5 className={'modal-title'} id={'modalCenterTitle'}>Añadir empresa a la Bolsa</h5>
+        let contenidoModal = [
+            <form key={'formAgregarEmpresa'}>
+                <div className={'col'}>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Nombre de la empresa</label>
+                        <input type={'text'} name={'nombre'} className={'form-control'} placeholder={'Nombre empresa'}
+                               onChange={(event) => this.setNombre(event)} />
+                        <small className={'form-text text-muted'}>El nombre es único</small>
+                    </div>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Código de la empresa</label>
+                        <input type={'text'} name={'codigo'} className={'form-control'} placeholder={'Código empresa'}
+                               onChange={(event) => this.setCodigo(event)} />
+                        <small className={'form-text text-muted'}>El código es único</small>
+                    </div>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Valor del día</label>
+                        <input type={'number'} name={'cantidad'} min={'0'} className={'form-control'}
+                               placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                               onChange={(event) => this.setValor(event)} />
+                        <small className={'form-text text-muted'}>Sólo valores numéricos</small>
+                    </div>
+                </div>
+            </form>,
+            <div key={'estadoAgregarEmpresa'} id={'estadoAgregarEmpresa'} />,
+            <div key={'botonAnadirAgregarEmpresa'} className={'d-flex flex-row-reverse'}>
+                <button className={'btn btn-primary'} onClick={() => this.anadir()}>Añadir</button>
+            </div>
+        ]
+        ReactDOM.render(<CabeceraModal cabeceraModal={cabeceraModal} />, document.getElementById('cabeceraModal'))
+        ReactDOM.render(<ContenidoModal contenidoModal={contenidoModal} />, document.getElementById('contenidoModal'))
+        // ReactDOM.render(<BotonGuardarModal />, document.getElementById('botonGuardarModal'))
+    }
+
+    anadir() {
+        let formData = new FormData()
+        formData.append('datos', JSON.stringify(this.state))
+        window.fetch('/bolsa/agregar', {
+            method: 'POST',
+            body: formData
+        }).then(
+            (result) => {
+                let estado = ''
+                if(result.ok) {
+                    estado = (
+                        <div className={'alert alert-success'} role={'alert'}>
+                            Empresa añadida!
+                        </div>
+                    )
+                    ReactDOM.render(estado, document.getElementById('estadoAgregarEmpresa'))
+                    setTimeout(
+                        function() {
+                            window.location.reload()
+                        }.bind(this), 2000
+                    )
+                }
+                else {
+                    estado = (
+                        <div className={'alert alert-danger'} role={'alert'}>
+                            ERROR! Nombre o código ya existentes.
+                        </div>
+                    )
+                    ReactDOM.render(estado, document.getElementById('estadoAgregarEmpresa'))
+                    setTimeout(
+                        function() {
+                            ReactDOM.unmountComponentAtNode(document.getElementById('estadoAgregarEmpresa'))
+                        }.bind(this), 3000
+                    )
+                }
+            },
+            (error) => {
+                alert(error)
+            })
+    }
+
+    setNombre(event) {
+        this.setState({
+            nombre: event.target.value
+        })
+    }
+
+    setCodigo(event) {
+        this.setState({
+            codigo: event.target.value
+        })
+    }
+
+    setValor(event) {
+        this.setState({
+            valor: event.target.value
+        })
+    }
+
+    render () {
+        return (
+            <button type={'button'} id={'botonAgregarValorDia'} className={'btn btn-primary'} data-toggle={'modal'} data-target={'#modalCenter'} onClick={() => this.mostrarModal()}>
+                Agregar empresa
+            </button>
+        )
+    }
+}
+
+class BotonGuardarModal extends React.Component {
+    constructor (props) {
+        super(props)
+    }
+
+    guardar() {
+        console.log('Se han guardado los datos')
+    }
+
+    render () {
+        return (
+            <button type={'button'} className={'btn btn-primary'} data-dismiss={'modal'} onClick={() => this.guardar()}>Guardar</button>
+        )
+    }
+}
+
+class ContenidoModal extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state={
+            contenido: props.contenidoModal
+        }
+    }
+
+    render () {
+        return this.state.contenido
+    }
+}
+
+class CabeceraModal extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state={
+            cabecera: props.cabeceraModal
+        }
+    }
+
+    render () {
+        return this.state.cabecera
+    }
+}
+
 ReactDOM.render(<NombreUsuario />, document.getElementById('nombreUsuario'))
 
 ReactDOM.render(<Acciones />, document.getElementById('acciones'))
@@ -513,3 +694,13 @@ ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
 ReactDOM.render(<CC />, document.getElementById('cc'))
 
 ReactDOM.render(<InformacionInicial />, document.getElementById('informacion'))
+
+// ReactDOM.render(<BotonGuardarModal />, document.getElementById('botonGuardarModal'))
+
+// ReactDOM.render(<ContenidoModal />, document.getElementById('contenidoModal'))
+
+ReactDOM.render(<BotonAgregarValorDia />, document.getElementById('botonAgregarValorDia'))
+
+ReactDOM.render(<BotonAgregarEmpresa />, document.getElementById('botonAgregarEmpresa'))
+
+// ReactDOM.render(<CabeceraModal />, document.getElementById('cabeceraModal'))

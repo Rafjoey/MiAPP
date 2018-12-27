@@ -42,4 +42,19 @@ class BolsaAPI extends AbstractController
 
         return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
     }
+
+    /**
+     * @Route("/bolsa/agregar", name="agregarEmpresa", methods={"POST"})
+     * @param Bolsa $bolsa
+     * @return Response
+     */
+    public function agregarEmpresa(Bolsa $bolsa)
+    {
+        $request = Request::createFromGlobals();
+        $datos = $request->request->get('datos');
+        $datos = json_decode($datos, true);
+        $resp = $bolsa->anadirEmpresa($datos);
+
+        return !$resp ? ERR::send_error(__FUNCTION__) : API::send_ok();
+    }
 }
