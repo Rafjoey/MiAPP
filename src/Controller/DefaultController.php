@@ -30,11 +30,11 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/menu", name="menu")
+     * @Route("/app", name="app")
      */
     public function menu() {
         if ($this->userLogCheck()) {
-            return $this->render('menu.html.twig');
+            return $this->render('app.html.twig');
         }
         return $this->redirectToRoute('inicio');
     }

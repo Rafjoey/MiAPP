@@ -41,20 +41,16 @@ class BotonLogin extends React.Component {
             .then(
                 (result) => {
                     if (result.token) {
-                        setTimeout(function() {
-                            this.setState({
-                                isLoaded: true,
-                                res: result,
-                                isData: true
-                            })
-                        }.bind(this), 1000)
+                        this.setState({
+                            isLoaded: true,
+                            res: result,
+                            isData: true
+                        })
                     } else {
-                        setTimeout(function() {
-                            this.setState({
-                                isLoaded: true,
-                                res: result
-                            })
-                        }.bind(this), 1000)
+                        this.setState({
+                            isLoaded: true,
+                            res: result
+                        })
                     }
                 },
                 (error) => { // En caso de error.
@@ -93,7 +89,7 @@ class BotonLogin extends React.Component {
             // window.localStorage.setItem('token', res.token)
             // window.localStorage.setItem('usuario', res.userdata.usuario)
             this.location = true
-            window.location = window.location.protocol + '//' + 'localhost:8000/menu'
+            window.location = window.location.protocol + '//' + 'localhost:8000/app'
             return (
                 <button className={'btn btn-primary'} onClick={(event) => this._handlerClick(event)} disabled='disabled' id={'botonLogin'}>
                     <span className='spinner-grow spinner-grow-sm' role='status' aria-hidden='true' />

@@ -38,6 +38,7 @@ class Acciones
                 $elem['titular'] = $accion->getTitular();
                 $elem['cantidad'] = $accion->getCantidad();
                 $elem['codigoempresa'] = $accion->getCodigoempresa();
+                $elem['nombreempresa'] = $accion->getNombreempresa();
 
                 array_push($response['datos'], $elem);
             }

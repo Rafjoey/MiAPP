@@ -18,9 +18,6 @@ const cargando = (
     </div>
 )
 
-// let intervalTotal = null
-// let intervalIndividual = null
-
 class ChartLine extends React.Component {
     constructor (props) {
         super(props)
@@ -29,20 +26,8 @@ class ChartLine extends React.Component {
             codigoempresa: props.codigoempresa,
             isLoaded: false
         }
-        if(props.codigoempresa === 'Completa'){
-            this.cargarTodo()
-            // intervalTotal = setInterval(() => {
-            //     console.log('Intervalo TOTAL!!!')
-            //     this.cargarTodo()
-            // }, 3000)
-        }
-        else {
-            this.cargar(props.codigoempresa)
-            // intervalIndividual = setInterval(() => {
-            //     console.log('Intervalo PARCIAL!!!')
-            //     this.cargar(props.codigoempresa)
-            // }, 30000)
-        }
+        if(props.codigoempresa === 'Completa') this.cargarTodo()
+        else this.cargar(props.codigoempresa)
     }
 
     cargarTodo () {
@@ -68,12 +53,12 @@ class ChartLine extends React.Component {
                         if(cont === nInfo - 1){
                             datasets.push({
                                 label: result.datos[i].codigoempresa,
-                                fillColor: "rgba(74, 121, 255, 0.53)",
+                                fillColor: "rgba(74, 121, 255, 0.16)",
                                 strokeColor: "rgba(74, 121, 255, 1)",
-                                pointColor: "rgba(74, 121, 255, 1)",
+                                pointColor: "rgba(62, 58, 58, 0.77)",
                                 pointStrokeColor: "#fff",
                                 pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(74, 121, 255, 1)",
+                                pointHighlightStroke: "rgba(40, 189, 40, 0.6)",
                                 data: dataTmp
                             })
                             dataTmp = []
@@ -116,12 +101,12 @@ class ChartLine extends React.Component {
 
                     datasets.push({
                         label: labels,
-                        fillColor: "rgba(74, 121, 255, 0.53)",
+                        fillColor: "rgba(74, 121, 255, 0.32)",
                         strokeColor: "rgba(74, 121, 255, 1)",
-                        pointColor: "rgba(74, 121, 255, 1)",
+                        pointColor: "rgba(62, 58, 58, 0.77)",
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(74, 121, 255, 1)",
+                        pointHighlightStroke: "rgba(40, 189, 40, 0.6)",
                         data: data
                     })
 
@@ -284,25 +269,73 @@ class Acciones extends React.Component {
         }, 50)
     }
 
+    comprar(accion){
+        console.log('Comprar acciones de:')
+        console.log(accion)
+    }
+
+    vender(accion){
+        console.log('Vender acciones de:')
+        console.log(accion)
+    }
+
+    cambiar(accion){
+        console.log('Cambiar acciones de:')
+        console.log(accion)
+    }
+
+    borrar(accion){
+        console.log('Borrar acciones de:')
+        console.log(accion)
+    }
+
     render () {
         const {datos, empresas, hayAcciones, hayEmpresas} = this.state
         if(hayAcciones && hayEmpresas) {
             let acciones = []
             datos.map((dato, index) => {
                 acciones.push(
-                    <div key={'ac_' + index} className={'col elementoAcordeon'}>
-                        <div className={'d-flex justify-content-start'}>
-                            <h4> {empresas[index].nombreempresa} </h4>
-                            &nbsp;&nbsp;&nbsp;
-                            <h5 className={'align-self-end'}> {dato.cantidad} acciones </h5>
-                        </div>
-                        <div className={'accionIndividual'}>
-                            <h6>
-                                <i className={'fa fa-line-chart'} /> {empresas[index].valordia}
-                                &nbsp;
-                                €/acción
-                            </h6>
-                            <a href={''}> {dato.codigoempresa} </a>
+                    <div key={'ac_' + index} className={'col'}>
+                        <div className={'row elementoAcordeonAcciones'}>
+                            <div className={'col'}>
+                                <div className={'d-flex justify-content-start'}>
+                                    <h4> {dato.nombreempresa} </h4>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <h5 className={'align-self-end'}> {dato.cantidad} acciones </h5>
+                                </div>
+                                <div className={'accionIndividual'}>
+                                    <h6>
+                                        <i className={'fa fa-line-chart'} /> {empresas[index].valordia}
+                                        &nbsp;
+                                        €/acción
+                                    </h6>
+                                    <a href={''}> {dato.codigoempresa} </a>
+                                </div>
+                            </div>
+                            <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
+                                <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.comprar(dato)}>
+                                    <i className={'fa fa-shopping-cart'} />
+                                    &nbsp;
+                                    Comprar
+                                </button>
+                                <button type={'button'} className={'row btn btn-success btn-sm mb-auto p-2'} onClick={() => this.vender(dato)}>
+                                    <i className={'fa fa-usd'} />
+                                    &nbsp;
+                                    Vender
+                                </button>
+                            </div>
+                            <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
+                                <button type={'button'} className={'row btn btn-info btn-sm mb-auto p-2'} onClick={() => this.cambiar(dato)}>
+                                    <i className={'fa fa-exchange'} />
+                                    &nbsp;
+                                    Cambiar
+                                </button>
+                                <button type={'button'} className={'row btn btn-danger btn-sm mb-auto p-2'} onClick={() => this.borrar(dato)}>
+                                    <i className={'fa fa-trash-o'} />
+                                    &nbsp;
+                                    Borrar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )
@@ -348,12 +381,9 @@ class Bolsa extends React.Component {
 
     mostrarInfo(event, codigoempresa, nombreempresa) {
         event.preventDefault()
-        if(!this.state.primeraVez){
-            ReactDOM.unmountComponentAtNode(document.getElementById('informacion'))
-        }
-        this.setState({
-            primeraVez: false
-        })
+
+        ReactDOM.unmountComponentAtNode(document.getElementById('informacion'))
+
         let estructura = <h3> Distribución temporal de acciones: {nombreempresa} - {codigoempresa} </h3>
 
         ReactDOM.render(estructura, document.getElementById('cabeceraInformacion'))
@@ -389,43 +419,13 @@ class Bolsa extends React.Component {
     }
 }
 
-class Historico extends React.Component {
+class InformacionInicial extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {
-            datos: [],
-            isLoaded: false
-        }
-        this.cargar()
-    }
-
-    cargar () {
-        window.fetch('/historico', {
-            method: 'GET'
-        })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        datos: result.datos,
-                        isLoaded: true
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: false,
-                        error
-                    })
-                }
-            )
     }
 
     render () {
-        const {datos, isLoaded} = this.state
-        if(isLoaded) {
-            return <span> historico </span>
-        }
-        else return cargando
+        return cargando
     }
 }
 
@@ -510,8 +510,6 @@ ReactDOM.render(<Acciones />, document.getElementById('acciones'))
 
 ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
 
-// ReactDOM.render(<Historico />, document.getElementById('historico'))
-
 ReactDOM.render(<CC />, document.getElementById('cc'))
 
-// ReactDOM.render(<ChartLine />, document.getElementById('grafica'))
+ReactDOM.render(<InformacionInicial />, document.getElementById('informacion'))

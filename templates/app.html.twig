@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href='{{ asset('build/css/menu.css') }}'>
+    <link rel="stylesheet" href='{{ asset('build/css/app.css') }}'>
 {% endblock %}
 
 {% block title %}
@@ -14,7 +14,6 @@
 
 {% block body %}
 
-    {#<div class="d-flex justify-content-between">#}
     <div class="accordion" id="acordeonMenu">
         <div class="card">
             <div class="card-header row" id="headingOne">
@@ -44,19 +43,6 @@
                 <div id="acciones"></div>
             </div>
         </div>
-        {#<div class="card">#}
-            {#<div class="card-header" id="headingThree">#}
-                {#<h2 class="mb-0">#}
-                    {#<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseHistorico" aria-expanded="false" aria-controls="collapseHistorico">#}
-                        {#<i class="fa fa-area-chart fa-sm"></i>#}
-                        {#Histórico#}
-                    {#</button>#}
-                {#</h2>#}
-            {#</div>#}
-            {#<div id="collapseHistorico" class="collapse elementosCollapse" aria-labelledby="headingThree" data-parent="#acordeonMenu">#}
-                {#<div id="historico"></div>#}
-            {#</div>#}
-        {#</div>#}
         <div class="card">
             <div class="card-header" id="headingThree">
                 <h2 class="mb-0">
@@ -77,10 +63,8 @@
         <div id="informacion"></div>
     </div>
 
-    {#</div>#}
-
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/js/menu.js') }}"></script>
+    <script src="{{ asset('build/js/app.js') }}"></script>
 {% endblock %}

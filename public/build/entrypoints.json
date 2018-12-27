@@ -10,9 +10,9 @@
         "/build/js/inicio.js"
       ]
     },
-    "js/menu": {
+    "js/app": {
       "js": [
-        "/build/js/menu.js"
+        "/build/js/app.js"
       ]
     },
     "js/bootstrap.min": {
@@ -30,9 +30,9 @@
         "/build/css/inicio.css"
       ]
     },
-    "css/menu": {
+    "css/app": {
       "css": [
-        "/build/css/menu.css"
+        "/build/css/app.css"
       ]
     },
     "css/font-awesome": {

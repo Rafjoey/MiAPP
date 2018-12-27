@@ -67,6 +67,7 @@ class Bolsa
                 $elem['id'] = $accion->getId();
                 $elem['valordia'] = $accion->getValordia();
                 $elem['codigoempresa'] = $accion->getCodigoempresa();
+                $elem['nombreempresa'] = $accion->getNombreempresa();
 
                 array_push($response['datos'], $elem);
             }
