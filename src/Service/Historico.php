@@ -80,4 +80,29 @@ class Historico
 
         return $response;
     }
+
+    public function anadirHistorico($datos){
+
+        $response = false;
+
+        try {
+            $mg = $this->managerRegistry->getManager();
+            $historico = new \App\Entity\Historico();
+
+            $historico->setFecha($datos['fecha']);
+            $historico->setCodigoempresa($datos['codigoempresa']);
+            $historico->setValor($datos['valor']);
+
+            $mg->persist($historico);
+            $mg->flush();
+
+            $response = true;
+        }
+        catch (Exception $exception) {
+            print_r($exception->getMessage()); // DEBUGGING
+            return $response;
+        }
+
+        return $response;
+    }
 }

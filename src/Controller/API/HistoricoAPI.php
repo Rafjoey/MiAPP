@@ -42,4 +42,19 @@ class HistoricoAPI extends AbstractController
 
         return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
     }
+
+    /**
+     * @Route("/historico/agregar", name="agregarHistorico", methods={"POST"})
+     * @param Historico $historico
+     * @return Response
+     */
+    public function agregarHistorico(Historico $historico)
+    {
+        $request = Request::createFromGlobals();
+        $datos = $request->request->get('datos');
+        $datos = json_decode($datos, true);
+        $resp = $historico->anadirHistorico($datos);
+
+        return !$resp ? ERR::send_error(__FUNCTION__) : API::send_ok();
+    }
 }

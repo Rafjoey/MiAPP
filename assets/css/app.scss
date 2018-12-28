@@ -1,3 +1,5 @@
+@import '~react-datepicker/dist/react-datepicker.css';
+
 .card-header{
   padding: 0.5rem 0.5rem !important;
 }
@@ -36,6 +38,12 @@
   position: absolute;
   margin: 10px 0px 0 0;
 }
+
+ #inputValorDia{
+   position: relative;
+   bottom: 5px;
+   right: 15px;
+ }
 
 .elementosCollapse {
   padding: 20px 0 0 50px;

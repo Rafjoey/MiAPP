@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import DatePicker from "react-datepicker";
+
 // import LineChart from 'react-chartjs';
 
 let LineChart = require("react-chartjs").Line;
@@ -36,7 +38,7 @@ class ChartLine extends React.Component {
         })
             .then(res => res.json())
             .then(
-                (result) => {
+                (result) => { console.log(result)
                     let dataTmp = []
                     let labels = []
                     let datasets = []
@@ -364,6 +366,7 @@ class Bolsa extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    ReactDOM.render(<BotonAgregarValorDia datos={result.datos} />, document.getElementById('botonAgregarValorDia'))
                     numeroEmpresas = result.datos.length
                     this.setState({
                         datos: result.datos,
@@ -507,20 +510,104 @@ class TotalIngresos extends React.Component {
 class BotonAgregarValorDia extends React.Component {
     constructor (props) {
         super(props)
+        this.state = {
+            datos: props.datos,
+            codigoEmpresa: '',
+            fecha: new Date(),
+            valor: 0,
+            fechaFormateada: '0-0-0'
+        }
     }
 
-    agregar() {
+    cambioEmpresa(event) {
+        this.setState({
+            codigoEmpresa: event.target.value
+        })
+    }
+
+    cambioFecha(event) {
+        ReactDOM.unmountComponentAtNode(document.getElementById('fecha'))
+        let fecha = event.toLocaleString().split(' ')[0]
+        this.setState({
+            fecha: event,
+            fechaFormateada: fecha
+        })
+
+        ReactDOM.render(<strong> {fecha} </strong>, document.getElementById('fecha'))
+    }
+
+    setValor(event) {
+        this.setState({
+            valor: event.target.value
+        })
+    }
+
+    mostrarModal() {
+        let datos = this.state.datos
         ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
         ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
-        let cabeceraModal = <h5 className={'modal-title'} id={'modalCenterTitle'}>Añadir valor día</h5>
-        let contenidoModal = <strong> Contenido modal añadir valor día </strong>
+        let cabeceraModal = <h5 className={'modal-title'} id={'modalCenterTitle'}>Agregar valores día</h5>
+        let opciones = []
+        datos.map((dato, index) => {
+            opciones.push(
+                <option key={'opciones_'+index} value={dato.codigoempresa}>
+                    {dato.nombreempresa} - {dato.codigoempresa}
+                </option>
+            )
+        })
+        let contenidoModal = [
+            <div key={'selectAgregarValorDia'} className={'input-group mb-3'}>
+                <div className={'input-group-prepend'}>
+                    <label className={'input-group-text'} htmlFor={'selectEmpresa'}>Empresa</label>
+                </div>
+                <select className={'custom-select'} id={'selectEmpresa'}
+                        onChange={(event) => this.cambioEmpresa(event)}> {opciones} </select>
+            </div>
+            ,
+            <div key={'datePickerYValor'} className={'row'}>
+                <div className={'col'}>
+                    <DatePicker dateFormat="dd/MM/yyyy" placeholderText={'Elegir fecha'} onChange={(event) => this.cambioFecha(event)} />
+                </div>
+                <input id={'inputValorDia'} type={'number'} name={'cantidad'} min={'0'} className={'col form-control'}
+                           placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                           onChange={(event) => this.setValor(event)} />
+            </div>
+            ,
+            <div key={'estadoAgregarValorDia'} id={'estadoAgregarValorDia'} />
+            ,
+            <div key={'fechaYBotonAgregarValorDia'} className={'d-flex justify-content-between'}>
+                <div key={'fecha'} id={'fecha'} />
+                <button className={'btn btn-primary'} onClick={() => this.anadir()}>Añadir</button>
+            </div>
+        ]
         ReactDOM.render(<CabeceraModal cabeceraModal={cabeceraModal} />, document.getElementById('cabeceraModal'))
         ReactDOM.render(<ContenidoModal contenidoModal={contenidoModal} />, document.getElementById('contenidoModal'))
     }
 
+    anadir() {
+        let formData = new FormData()
+        let datos = {
+            codigoempresa: this.state.codigoEmpresa,
+            fecha: this.state.fecha,
+            valor: this.state.valor
+        }
+        console.log(datos)
+        formData.append('datos', JSON.stringify(datos))
+        window.fetch('/historico/agregar', {
+            method: 'POST',
+            body: formData
+        }).then(
+            (result) => {
+                console.log(result)
+            },
+            (error) => {
+                alert(error)
+            })
+    }
+
     render () {
         return (
-            <button type={'button'} id={'botonAgregarValorDia'} className={'btn btn-primary'} data-toggle={'modal'} data-target={'#modalCenter'} onClick={() => this.agregar()}>
+            <button type={'button'} id={'botonAgregarValorDia'} className={'btn btn-primary'} data-toggle={'modal'} data-target={'#modalCenter'} onClick={() => this.mostrarModal()}>
                 Agregar valor día
             </button>
         )
@@ -585,17 +672,15 @@ class BotonAgregarEmpresa extends React.Component {
             (result) => {
                 let estado = ''
                 if(result.ok) {
+                    ReactDOM.unmountComponentAtNode(document.getElementById('bolsa'))
+                    ReactDOM.unmountComponentAtNode(document.getElementById('informacion'))
                     estado = (
                         <div className={'alert alert-success'} role={'alert'}>
                             Empresa añadida!
                         </div>
                     )
                     ReactDOM.render(estado, document.getElementById('estadoAgregarEmpresa'))
-                    setTimeout(
-                        function() {
-                            window.location.reload()
-                        }.bind(this), 2000
-                    )
+                    ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
                 }
                 else {
                     estado = (
@@ -693,14 +778,14 @@ ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
 
 ReactDOM.render(<CC />, document.getElementById('cc'))
 
-ReactDOM.render(<InformacionInicial />, document.getElementById('informacion'))
-
-// ReactDOM.render(<BotonGuardarModal />, document.getElementById('botonGuardarModal'))
-
-// ReactDOM.render(<ContenidoModal />, document.getElementById('contenidoModal'))
-
-ReactDOM.render(<BotonAgregarValorDia />, document.getElementById('botonAgregarValorDia'))
+// ReactDOM.render(<BotonAgregarValorDia />, document.getElementById('botonAgregarValorDia'))
 
 ReactDOM.render(<BotonAgregarEmpresa />, document.getElementById('botonAgregarEmpresa'))
 
 // ReactDOM.render(<CabeceraModal />, document.getElementById('cabeceraModal'))
+
+// ReactDOM.render(<InformacionInicial />, document.getElementById('informacion'))
+
+// ReactDOM.render(<BotonGuardarModal />, document.getElementById('botonGuardarModal'))
+
+// ReactDOM.render(<ContenidoModal />, document.getElementById('contenidoModal'))
