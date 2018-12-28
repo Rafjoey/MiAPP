@@ -28,7 +28,7 @@ class Historico
         try {
             $mg = $this->managerRegistry->getManager();
             $resp = $mg->getRepository(\App\Entity\Historico::class)
-                ->findBy([], ['codigoempresa' => 'ASC']);
+                ->findBy([], ['codigoempresa' => 'ASC', 'fecha' => 'ASC']);
 
             $response['datos'] = [];
 
@@ -89,8 +89,12 @@ class Historico
             $mg = $this->managerRegistry->getManager();
             $historico = new \App\Entity\Historico();
 
-            $historico->setFecha($datos['fecha']);
-            $historico->setCodigoempresa($datos['codigoempresa']);
+            $fecha = $codigoempresa = null;
+            if($datos['fecha'] !== '') $fecha = $datos['fecha'];
+            if($datos['codigoempresa'] !== '') $codigoempresa = $datos['codigoempresa'];
+
+            $historico->setFecha($fecha);
+            $historico->setCodigoempresa($codigoempresa);
             $historico->setValor($datos['valor']);
 
             $mg->persist($historico);

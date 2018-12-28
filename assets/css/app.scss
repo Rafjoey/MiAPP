@@ -21,16 +21,38 @@
   width: 408px !important;
   margin-bottom: 10px;
   border-radius: 12px;
-  border-right: solid 1px #75ff75db;
-  border-bottom: solid 1px #75ff75db;
+  border-right: solid 1px green;
+  border-bottom: solid 1px green;
 }
 
 .accionIndividual{
   margin-left: 10px;
 }
 
+#estadoSolicitudAgregarEmpresa, #estadoSolicitudAgregarValorDia{
+  height: 38px;
+}
+
+#botonSolicitud{
+  margin: 10px 16px;
+}
+
 #nombreUsuario{
   color: white;
+}
+
+#datePicker{
+  margin-left: 84px;
+}
+
+#funcionalidadFooter{
+  margin: 0px;
+  padding: 46px;
+  background-color: #80808036;
+}
+
+#funcionalidadAgregarValorDia{
+  border-right: solid 1px green;
 }
 
 #totalIngresos{
@@ -45,6 +67,10 @@
    right: 15px;
  }
 
+.tituloFuncionalidad{
+  margin-bottom: 10px;
+}
+
 .elementosCollapse {
   padding: 20px 0 0 50px;
   background-color: #abfbff73;
@@ -58,54 +84,6 @@
   padding: 15px;
 }
 
-#contenedorInformacion{
-  background-color: #80808036;
-}
  .columnaBotones{
    margin-bottom: 0px !important;
  }
-
-//.elementosCollapse {
-//  padding: 20px 0px 0px 50px;
-//  background: linear-gradient(-45deg, #ffece6, #ffc5c8, #a6e7ff, #85ffe2);
-//  background-size: 200% 200%;
-//  -webkit-animation: Gradient 10s ease infinite;
-//  -moz-animation: Gradient 10s ease infinite;
-//  animation: Gradient 10s ease infinite;
-//}
-//
-//@-webkit-keyframes Gradient {
-//  0% {
-//    background-position: 0% 50%
-//  }
-//  50% {
-//    background-position: 100% 50%
-//  }
-//  100% {
-//    background-position: 0% 50%
-//  }
-//}
-//
-//@-moz-keyframes Gradient {
-//  0% {
-//    background-position: 0% 50%
-//  }
-//  50% {
-//    background-position: 100% 50%
-//  }
-//  100% {
-//    background-position: 0% 50%
-//  }
-//}
-//
-//@keyframes Gradient {
-//  0% {
-//    background-position: 0% 50%
-//  }
-//  50% {
-//    background-position: 100% 50%
-//  }
-//  100% {
-//    background-position: 0% 50%
-//  }
-//}

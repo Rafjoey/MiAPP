@@ -29,9 +29,9 @@ class Historico
     private $codigoempresa;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="FECHA", type="date", nullable=false)
+     * @ORM\Column(name="FECHA", type="string", length=20, nullable=false)
      */
     private $fecha;
 
@@ -75,17 +75,17 @@ class Historico
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getFecha(): \DateTime
+    public function getFecha(): string
     {
         return $this->fecha;
     }
 
     /**
-     * @param \DateTime $fecha
+     * @param string $fecha
      */
-    public function setFecha(\DateTime $fecha): void
+    public function setFecha(string $fecha): void
     {
         $this->fecha = $fecha;
     }
