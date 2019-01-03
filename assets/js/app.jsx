@@ -212,7 +212,8 @@ class Acciones extends React.Component {
             hayEmpresas: false,
             isLoaded: false
         }
-        this.maxCreditos = 0
+        this.maxAcciones = 0
+        this.ccEnUso = {}
         this.cargar()
     }
 
@@ -276,38 +277,53 @@ class Acciones extends React.Component {
             let ccs = this.state.cuentasCorrientes
             ccs.map((cc) => {
                 if(cc.iban === event.target.value) {
-                    this.maxCreditos = Math.floor(cc.saldo / valorDia)
-                    document.getElementById('maxAcciones').innerText = this.maxCreditos
-                    document.getElementById('customRange2').setAttribute('max', this.maxCreditos)
-                    document.getElementById('numAcciones').setAttribute('max', this.maxCreditos)
+                    this.ccEnUso = cc
+                    this.maxAcciones = Math.floor(cc.saldo / valorDia)
+                    let restante = (cc.saldo - valorDia).toFixed(2)
+                    document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + restante + '€'
+                    document.getElementById('btnCompraDefinitiva').removeAttribute('disabled')
+                    document.getElementById('maxAcciones').innerText = this.maxAcciones
+                    document.getElementById('customRange2').setAttribute('max', this.maxAcciones)
+                    document.getElementById('numAcciones').setAttribute('max', this.maxAcciones)
+                    document.getElementById('customRange2').value = 1
+                    document.getElementById('numAcciones').value = 1
                 }
             })
         }
         else {
+            this.ccEnUso = {}
+            this.maxAcciones = 0
+            document.getElementById('saldoRestante').innerText = 'Dinero restante: -'
+            document.getElementById('btnCompraDefinitiva').setAttribute('disabled', 1)
             document.getElementById('maxAcciones').innerText = '-'
             document.getElementById('customRange2').setAttribute('max', 1)
             document.getElementById('numAcciones').setAttribute('max', 0)
+            document.getElementById('customRange2').value = 1
             document.getElementById('numAcciones').value = ''
         }
     }
 
-    range(e) {
+    range(e, valorDia) {
+        let resto = (this.ccEnUso.saldo - (e.target.value * valorDia)).toFixed(2)
+        document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + resto.toString() + '€'
         document.getElementById('numAcciones').value = e.target.value
     }
 
-    cambioCompraManual(e) {
-        if(this.maxCreditos > e.target.value) {
+    cambioCompraManual(e, valorDia) {
+        if(this.maxAcciones > e.target.value) {
+            let resto = this.ccEnUso.saldo - (e.target.value * valorDia)
+            document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + resto.toString() + '€'
             document.getElementById('numAcciones').value = e.target.value
             document.getElementById('customRange2').value = e.target.value
         }
         else {
-            document.getElementById('numAcciones').value = this.maxCreditos
-            document.getElementById('customRange2').value = this.maxCreditos
+            document.getElementById('numAcciones').value = this.maxAcciones
+            document.getElementById('customRange2').value = this.maxAcciones
         }
     }
 
     comprar(accion, valorDia){
-        this.maxCreditos = 0
+        this.maxAcciones = 0
         ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
         ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
         let ccs = this.state.cuentasCorrientes
@@ -341,20 +357,24 @@ class Acciones extends React.Component {
                         <span className={'spanVacio input-group-text'} />
                         <span className={'input-group-text'}>Comprar</span>
                         <input id={'numAcciones'} type={'number'} className={'input-group-text form-control'} aria-label={'J I'}
-                               onChange={(e) => this.cambioCompraManual(e)} min={'1'} max={'1'} />
+                               onChange={(e) => this.cambioCompraManual(e, valorDia)} min={'1'} max={'1'} />
                         <span className={'spanVacio input-group-text'} />
                         <span className={'input-group-text'}>Máx</span>
                         <span className={'input-group-text'} id={'maxAcciones'}>-</span>
                     </div>
-                    <input type={'range'} className={'custom-range slider-color'} min={'1'} max={'1'} id={'customRange2'}
-                    onChange={(e) => this.range(e)}/>
-                    <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.finalizarCompra()}
-                            data-toggle={'modal'} data-target={'#modalCenter'}>
+                </div>
+                <input type={'range'} className={'custom-range slider-color'} min={'1'} max={'1'} id={'customRange2'}
+                             onChange={(e) => this.range(e, valorDia)}/>
+                <div className={'row'}>
+                    <strong className={'col'} id={'saldoRestante'} > Dinero restante: - </strong>
+                    <button type={'button'} className={'btn btn-primary btn-sm mb-auto p-2'} id={'btnCompraDefinitiva'}
+                            onClick={(e) => this.finalizarCompra(e)}>
                         <i className={'fa fa-shopping-cart'} />
                         &nbsp;
                         Comprar
                     </button>
                 </div>
+
             </div>
         )
         ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
@@ -362,8 +382,13 @@ class Acciones extends React.Component {
         document.getElementById('customRange2').value = 0
     }
 
-    finalizarCompra() {
-
+    finalizarCompra(e) {
+        console.log(e)
+        let numAcciones = document.getElementById('numAcciones').value
+        console.log('Se van a comprar ' + numAcciones + ' acciones.')
+        console.log('Se van a usar la cc: ' + this.ccEnUso.iban)
+        this.ccEnUso = {}
+        this.maxAcciones = 0
     }
 
     vender(accion, valorDia){
