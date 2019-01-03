@@ -2,8 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import DatePicker from "react-datepicker";
 
-// import LineChart from 'react-chartjs';
-
 let LineChart = require("react-chartjs").Line;
 
 /* global FormData */
@@ -207,12 +205,14 @@ class Acciones extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
+            cuentasCorrientes: props.cuentasCorrientes,
             datos: [],
             empresas: [],
             hayAcciones: false,
             hayEmpresas: false,
             isLoaded: false
         }
+        this.maxCreditos = 0
         this.cargar()
     }
 
@@ -271,16 +271,144 @@ class Acciones extends React.Component {
         }, 50)
     }
 
-    comprar(accion){
+    cambioCC(event, valorDia) {
+        if(event.target.value !== ''){
+            let ccs = this.state.cuentasCorrientes
+            ccs.map((cc) => {
+                if(cc.iban === event.target.value) {
+                    this.maxCreditos = Math.floor(cc.saldo / valorDia)
+                    document.getElementById('maxAcciones').innerText = this.maxCreditos
+                    document.getElementById('customRange2').setAttribute('max', this.maxCreditos)
+                    document.getElementById('numAcciones').setAttribute('max', this.maxCreditos)
+                }
+            })
+        }
+        else {
+            document.getElementById('maxAcciones').innerText = '-'
+            document.getElementById('customRange2').setAttribute('max', 1)
+            document.getElementById('numAcciones').setAttribute('max', 0)
+            document.getElementById('numAcciones').value = ''
+        }
     }
 
-    vender(accion){
+    range(e) {
+        document.getElementById('numAcciones').value = e.target.value
     }
 
-    cambiar(accion){
+    cambioCompraManual(e) {
+        if(this.maxCreditos > e.target.value) {
+            document.getElementById('numAcciones').value = e.target.value
+            document.getElementById('customRange2').value = e.target.value
+        }
+        else {
+            document.getElementById('numAcciones').value = this.maxCreditos
+            document.getElementById('customRange2').value = this.maxCreditos
+        }
+    }
+
+    comprar(accion, valorDia){
+        this.maxCreditos = 0
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let ccs = this.state.cuentasCorrientes
+        let cabecera = <h5 key={'cabeceraComprarAcciones'}> Comprar acciones de {accion.nombreempresa} </h5>
+        let opciones = []
+        opciones.push(
+            <option key={'cc_X'} value={''}>
+                Seleccionar cuenta corriente
+            </option>
+        )
+        ccs.map((cc, index) => {
+            opciones.push(
+                <option key={'cc_'+index} value={cc.iban}>
+                    {cc.iban} &nbsp;&nbsp;&nbsp;&nbsp; {cc.saldo}€
+                </option>
+            )
+        })
+        let contenido = (
+            <div key={'contenidoComprarAcciones'}>
+                <div key={'selectAgregarValorDia'} className={'input-group mb-3'}>
+                    <div className={'input-group-prepend'}>
+                        <label className={'input-group-text'} htmlFor={'selectEmpresa'}>CC</label>
+                    </div>
+                    <select className={'custom-select'} id={'selectCC'}
+                            onChange={(event) => this.cambioCC(event, valorDia)}> {opciones} </select>
+                </div>
+                <div id={'rangeAcciones'} className={'input-group mb-3'}>
+                    <div id={'rowCompra'} className={'input-group-prepend'}>
+                        <span className={'input-group-text'}>V. día</span>
+                        <span className={'input-group-text'}>{valorDia}€</span>
+                        <span className={'spanVacio input-group-text'} />
+                        <span className={'input-group-text'}>Comprar</span>
+                        <input id={'numAcciones'} type={'number'} className={'input-group-text form-control'} aria-label={'J I'}
+                               onChange={(e) => this.cambioCompraManual(e)} min={'1'} max={'1'} />
+                        <span className={'spanVacio input-group-text'} />
+                        <span className={'input-group-text'}>Máx</span>
+                        <span className={'input-group-text'} id={'maxAcciones'}>-</span>
+                    </div>
+                    <input type={'range'} className={'custom-range slider-color'} min={'1'} max={'1'} id={'customRange2'}
+                    onChange={(e) => this.range(e)}/>
+                    <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.finalizarCompra()}
+                            data-toggle={'modal'} data-target={'#modalCenter'}>
+                        <i className={'fa fa-shopping-cart'} />
+                        &nbsp;
+                        Comprar
+                    </button>
+                </div>
+            </div>
+        )
+        ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
+        ReactDOM.render(contenido, document.getElementById('contenidoModal'))
+        document.getElementById('customRange2').value = 0
+    }
+
+    finalizarCompra() {
+
+    }
+
+    vender(accion, valorDia){
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let cabecera = <h5 key={'cabeceraComprarAcciones'}> Vender acciones de {accion.nombreempresa} </h5>
+        let contenido = (
+            <div key={'contenidoComprarAcciones'}>
+                <input id={'inputComprarAcciones'} type={'number'} name={'cantidad'} min={'0'} className={'col form-control'}
+                       placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                       onChange={(event) => this.setValor(event)} />
+            </div>
+        )
+        ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
+        ReactDOM.render(contenido, document.getElementById('contenidoModal'))
+    }
+
+    cambiar(accion, valorDia){
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let cabecera = <h5 key={'cabeceraComprarAcciones'}> Cambiar acciones de {accion.nombreempresa} </h5>
+        let contenido = (
+            <div key={'contenidoComprarAcciones'}>
+                <input id={'inputComprarAcciones'} type={'number'} name={'cantidad'} min={'0'} className={'col form-control'}
+                       placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                       onChange={(event) => this.setValor(event)} />
+            </div>
+        )
+        ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
+        ReactDOM.render(contenido, document.getElementById('contenidoModal'))
     }
 
     borrar(accion){
+        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
+        let cabecera = <h5 key={'cabeceraComprarAcciones'}> Borrar acciones de {accion.nombreempresa} </h5>
+        let contenido = (
+            <div key={'contenidoComprarAcciones'}>
+                <input id={'inputComprarAcciones'} type={'number'} name={'cantidad'} min={'0'} className={'col form-control'}
+                       placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                       onChange={(event) => this.setValor(event)} />
+            </div>
+        )
+        ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
+        ReactDOM.render(contenido, document.getElementById('contenidoModal'))
     }
 
     verEmpresa(empresa) {
@@ -316,24 +444,28 @@ class Acciones extends React.Component {
                                 </div>
                             </div>
                             <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
-                                <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.comprar(dato)}>
+                                <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.comprar(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
                                     <i className={'fa fa-shopping-cart'} />
                                     &nbsp;
                                     Comprar
                                 </button>
-                                <button type={'button'} className={'row btn btn-success btn-sm mb-auto p-2'} onClick={() => this.vender(dato)}>
+                                <button type={'button'} className={'row btn btn-success btn-sm mb-auto p-2'} onClick={() => this.vender(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
                                     <i className={'fa fa-usd'} />
                                     &nbsp;
                                     Vender
                                 </button>
                             </div>
                             <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
-                                <button type={'button'} className={'row btn btn-info btn-sm mb-auto p-2'} onClick={() => this.cambiar(dato)}>
+                                <button type={'button'} className={'row btn btn-info btn-sm mb-auto p-2'} onClick={() => this.cambiar(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
                                     <i className={'fa fa-exchange'} />
                                     &nbsp;
                                     Cambiar
                                 </button>
-                                <button type={'button'} className={'row btn btn-danger btn-sm mb-auto p-2'} onClick={() => this.borrar(dato)}>
+                                <button type={'button'} className={'row btn btn-danger btn-sm mb-auto p-2'} onClick={() => this.borrar(dato)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
                                     <i className={'fa fa-trash-o'} />
                                     &nbsp;
                                     Borrar
@@ -441,6 +573,7 @@ class CC extends React.Component {
             .then(
                 (result) => {
                     ReactDOM.render(<TotalIngresos datos={result.datos} />, document.getElementById('totalIngresos'))
+                    ReactDOM.render(<Acciones cuentasCorrientes={result.datos} />, document.getElementById('acciones'))
                     this.setState({
                         datos: result.datos,
                         isLoaded: true
@@ -496,35 +629,35 @@ class TotalIngresos extends React.Component {
     }
 }
 
-class ContenidoModal extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state={
-            contenido: props.contenidoModal
-        }
-    }
-
-    render () {
-        return this.state.contenido
-    }
-}
-
-class CabeceraModal extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state={
-            cabecera: props.cabeceraModal
-        }
-    }
-
-    render () {
-        return this.state.cabecera
-    }
-}
+// class ContenidoModal extends React.Component {
+//     constructor (props) {
+//         super(props)
+//         this.state={
+//             contenido: props.contenidoModal
+//         }
+//     }
+//
+//     render () {
+//         return this.state.contenido
+//     }
+// }
+//
+// class CabeceraModal extends React.Component {
+//     constructor (props) {
+//         super(props)
+//         this.state={
+//             cabecera: props.cabeceraModal
+//         }
+//     }
+//
+//     render () {
+//         return this.state.cabecera
+//     }
+// }
 
 ReactDOM.render(<NombreUsuario />, document.getElementById('nombreUsuario'))
 
-ReactDOM.render(<Acciones />, document.getElementById('acciones'))
+// ReactDOM.render(<Acciones />, document.getElementById('acciones'))
 
 ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
 

@@ -87,3 +87,43 @@
  .columnaBotones{
    margin-bottom: 0px !important;
  }
+
+.slider-color{
+  -webkit-appearance: none;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider-color::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider-color::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.spanVacio{
+  background-color: #cce5ff;
+}
+
+#customRange2{
+  margin-top: 12px;
+  margin-bottom: inherit;
+}
+
+#rowCompra{
+  width: 100%;
+}
