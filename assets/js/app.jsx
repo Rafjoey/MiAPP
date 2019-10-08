@@ -311,7 +311,7 @@ class Acciones extends React.Component {
 
     cambioCompraManual(e, valorDia) {
         if(this.maxAcciones > e.target.value) {
-            let resto = this.ccEnUso.saldo - (e.target.value * valorDia)
+            let resto = (this.ccEnUso.saldo - (e.target.value * valorDia)).toFixed(2)
             document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + resto.toString() + '€'
             document.getElementById('numAcciones').value = e.target.value
             document.getElementById('customRange2').value = e.target.value
@@ -383,12 +383,11 @@ class Acciones extends React.Component {
     }
 
     finalizarCompra(e) {
-        console.log(e)
-        let numAcciones = document.getElementById('numAcciones').value
-        console.log('Se van a comprar ' + numAcciones + ' acciones.')
-        console.log('Se van a usar la cc: ' + this.ccEnUso.iban)
-        this.ccEnUso = {}
-        this.maxAcciones = 0
+        // let numAcciones = document.getElementById('numAcciones').value
+        // console.log('Se van a comprar ' + document.getElementById('numAcciones').value + ' acciones.')
+        // console.log('Se van a usar la cc: ' + this.ccEnUso.iban)
+        // this.ccEnUso = {}
+        // this.maxAcciones = 0
     }
 
     vender(accion, valorDia){
