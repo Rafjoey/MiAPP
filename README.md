@@ -6,7 +6,7 @@ Para usar la aplicación se ha de descargar:
 
 - [Proyecto](https://github.com/Rafjoey/MiAPP.git).
 - [COMPOSER](https://getcomposer.org/) e instalarlo.
-- PHP, en este caso [XAMPP](https://www.apachefriends.org/es/index.html).
+- Servidor y PHP, en este caso [XAMPP](https://www.apachefriends.org/es/index.html).
 
 Añadir la variable de entorno C:\composer
 
