@@ -24,6 +24,6 @@ Compilar el código de React con el comando .yarn encore dev --watch'.
 
 Acceder a la [APP](http://localhost:8000).
 
-Existe una BBDD funcional llamado bdpruebas.sql que puede utilizarse para ver la aplicación funcional.
+Existe una BBDD funcional llamado 'bdpruebas.sql' que puede utilizarse para ver la aplicación funcional.
 
 Loguear con un usuario y contraseña previamente definidos en la BBDD (no hay registro todavía).
