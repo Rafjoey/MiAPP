@@ -18,11 +18,11 @@ Para instalar las dependencias se ha de descargar el repositorio y:
 
 ## Compilar con yarn
 
-Compilar el código de React con el comando .yarn encore dev --watch'.
+Compilar el código de React con el comando 'yarn encore dev --watch'.
 
 ## Acceso a la APP
 
-Acceder a la [APP](http://localhost:8000).
+Acceder a la [APP](http://localhost:8000) http://localhost:8000.
 
 Existe una BBDD funcional llamado 'bdpruebas.sql' que puede utilizarse para ver la aplicación funcional.
 
