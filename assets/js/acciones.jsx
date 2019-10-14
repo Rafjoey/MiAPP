@@ -259,59 +259,59 @@ class Acciones extends React.Component {
     render() {
         const { datos, empresas, hayAcciones, hayEmpresas } = this.state
         if (hayAcciones && hayEmpresas) {
-            let acciones = []
-            datos.map((dato, index) => {
-                acciones.push(
-                    <div key={'ac_' + index} className={'col'}>
-                        <div className={'row elementoAcordeonAcciones'}>
-                            <div className={'col'}>
-                                <div className={'d-flex justify-content-start'}>
-                                    <h4> {dato.nombreempresa} </h4>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <h5 className={'align-self-end'}> {dato.cantidad} acciones </h5>
+            return <div key={'acciones'} className={'row'}>
+                {
+                    datos.map((dato, index) => {
+                        return <div key={'ac_' + index} className={'col'}>
+                            <div className={'row elementoAcordeonAcciones'}>
+                                <div className={'col'}>
+                                    <div className={'d-flex justify-content-start'}>
+                                        <h4> {dato.nombreempresa} </h4>
+                                        &nbsp;&nbsp;&nbsp;
+                                            <h5 className={'align-self-end'}> {dato.cantidad} acciones </h5>
+                                    </div>
+                                    <div className={'accionIndividual'}>
+                                        <h6>
+                                            <i className={'fa fa-line-chart'} /> {empresas[index].valordia}
+                                            &nbsp;
+                                            €/acción
+                                            </h6>
+                                        <a href={'#contenedorInformacion'} onClick={() => this.verEmpresa(dato)}> {dato.codigoempresa} </a>
+                                    </div>
                                 </div>
-                                <div className={'accionIndividual'}>
-                                    <h6>
-                                        <i className={'fa fa-line-chart'} /> {empresas[index].valordia}
+                                <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
+                                    <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.comprar(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
+                                        <i className={'fa fa-shopping-cart'} />
                                         &nbsp;
-                                        €/acción
-                                    </h6>
-                                    <a href={'#contenedorInformacion'} onClick={() => this.verEmpresa(dato)}> {dato.codigoempresa} </a>
+                                        Comprar
+                                        </button>
+                                    <button type={'button'} className={'row btn btn-success btn-sm mb-auto p-2'} onClick={() => this.vender(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
+                                        <i className={'fa fa-usd'} />
+                                        &nbsp;
+                                        Vender
+                                        </button>
                                 </div>
-                            </div>
-                            <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
-                                <button type={'button'} className={'row btn btn-primary btn-sm mb-auto p-2'} onClick={() => this.comprar(dato, empresas[index].valordia)}
-                                    data-toggle={'modal'} data-target={'#modalCenter'}>
-                                    <i className={'fa fa-shopping-cart'} />
-                                    &nbsp;
-                                    Comprar
-                                </button>
-                                <button type={'button'} className={'row btn btn-success btn-sm mb-auto p-2'} onClick={() => this.vender(dato, empresas[index].valordia)}
-                                    data-toggle={'modal'} data-target={'#modalCenter'}>
-                                    <i className={'fa fa-usd'} />
-                                    &nbsp;
-                                    Vender
-                                </button>
-                            </div>
-                            <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
-                                <button type={'button'} className={'row btn btn-info btn-sm mb-auto p-2'} onClick={() => this.cambiar(dato, empresas[index].valordia)}
-                                    data-toggle={'modal'} data-target={'#modalCenter'}>
-                                    <i className={'fa fa-exchange'} />
-                                    &nbsp;
-                                    Cambiar
-                                </button>
-                                <button type={'button'} className={'row btn btn-danger btn-sm mb-auto p-2'} onClick={() => this.borrar(dato)}
-                                    data-toggle={'modal'} data-target={'#modalCenter'}>
-                                    <i className={'fa fa-trash-o'} />
-                                    &nbsp;
-                                    Borrar
-                                </button>
+                                <div className={'col-3 d-flex align-items-start flex-column bd-highlight mb-2 columnaBotones'}>
+                                    <button type={'button'} className={'row btn btn-info btn-sm mb-auto p-2'} onClick={() => this.cambiar(dato, empresas[index].valordia)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
+                                        <i className={'fa fa-exchange'} />
+                                        &nbsp;
+                                        Cambiar
+                                        </button>
+                                    <button type={'button'} className={'row btn btn-danger btn-sm mb-auto p-2'} onClick={() => this.borrar(dato)}
+                                        data-toggle={'modal'} data-target={'#modalCenter'}>
+                                        <i className={'fa fa-trash-o'} />
+                                        &nbsp;
+                                        Borrar
+                                        </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )
-            })
-            return <div key={'acciones'} className={'row'}> {acciones} </div>
+                    })
+                }
+            </div>
         }
         else return cargando
     }

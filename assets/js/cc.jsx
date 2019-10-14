@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Acciones from './acciones'
-import TotalIngresos from'./totalIngresos'
+import TotalIngresos from './totalIngresos'
 
 let cookies = document.cookie.split(';')
 let usuario = cookies[1].split('=')[1]
@@ -53,19 +53,17 @@ class CC extends React.Component {
     render() {
         const { datos, isLoaded } = this.state
         if (isLoaded) {
-            let cuentas = []
-            datos.map((dato, index) => {
-                cuentas.push(
-                    <div key={'cc_' + index} className={'col elementoAcordeon'}>
+            return <div key={'cc'} className={'row'}>
+                {datos.map((dato, index) => {
+                    return <div key={'cc_' + index} className={'col elementoAcordeon'}>
                         <div className={'d-flex justify-content-start'}>
                             <a href={''}> {dato.iban} </a>
                             &nbsp;&nbsp;&nbsp;
                             {dato.saldo}€
                         </div>
                     </div>
-                )
-            })
-            return <div key={'cc'} className={'row'}> {cuentas} </div>
+                })}
+            </div>
         }
         else return cargando
     }

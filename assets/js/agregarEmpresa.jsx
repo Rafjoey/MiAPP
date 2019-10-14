@@ -68,37 +68,34 @@ class FuncionalidadAgregarEmpresa extends React.Component {
     }
 
     render() {
-        let contenido = [
-            <div key={'contenedorAgregarEmpresa'}>
-                <h5 className={'modal-title tituloFuncionalidad'}>Añadir empresa a la Bolsa</h5>
-                <form key={'formAgregarEmpresa'}>
-                    <div className={'col'}>
-                        <div className={'row form-group'}>
-                            <label htmlFor={'exampleInputEmail1'}>Nombre de la empresa</label>
-                            <input type={'text'} name={'nombre'} className={'form-control'} placeholder={'Nombre empresa'}
-                                onChange={(event) => this.setNombre(event)} />
-                        </div>
-                        <div className={'row form-group'}>
-                            <label htmlFor={'exampleInputEmail1'}>Código de la empresa</label>
-                            <input type={'text'} name={'codigo'} className={'form-control'} placeholder={'Código empresa'}
-                                onChange={(event) => this.setCodigo(event)} />
-                        </div>
-                        <div className={'row form-group'}>
-                            <label htmlFor={'exampleInputEmail1'}>Valor del día</label>
-                            <input type={'number'} name={'cantidad'} min={'0'} className={'form-control'}
-                                placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
-                                onChange={(event) => this.setValor(event)} />
-                        </div>
+        return <div key={'contenedorAgregarEmpresa'}>
+            <h5 className={'modal-title tituloFuncionalidad'}>Añadir empresa a la Bolsa</h5>
+            <form key={'formAgregarEmpresa'}>
+                <div className={'col'}>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Nombre de la empresa</label>
+                        <input type={'text'} name={'nombre'} className={'form-control'} placeholder={'Nombre empresa'}
+                            onChange={(event) => this.setNombre(event)} />
                     </div>
-                </form>
-
-                <div key={'rowEstadoSolicitud'} className={'row'}>
-                    <div key={'estadoSolicitud'} className={'col'} id={'estadoSolicitudAgregarEmpresa'} />
-                    <button id={'botonSolicitud'} className={'btn btn-primary'} onClick={() => this.anadir()}>Añadir</button>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Código de la empresa</label>
+                        <input type={'text'} name={'codigo'} className={'form-control'} placeholder={'Código empresa'}
+                            onChange={(event) => this.setCodigo(event)} />
+                    </div>
+                    <div className={'row form-group'}>
+                        <label htmlFor={'exampleInputEmail1'}>Valor del día</label>
+                        <input type={'number'} name={'cantidad'} min={'0'} className={'form-control'}
+                            placeholder={'Valor día'} pattern="\d+(\.\d{1,2})?"
+                            onChange={(event) => this.setValor(event)} />
+                    </div>
                 </div>
+            </form>
+
+            <div key={'rowEstadoSolicitud'} className={'row'}>
+                <div key={'estadoSolicitud'} className={'col'} id={'estadoSolicitudAgregarEmpresa'} />
+                <button id={'botonSolicitud'} className={'btn btn-primary'} onClick={() => this.anadir()}>Añadir</button>
             </div>
-        ]
-        return contenido
+        </div>
     }
 }
 

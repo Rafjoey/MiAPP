@@ -11,7 +11,7 @@ class TotalIngresos extends React.Component {
     render() {
         const { datos } = this.state
         let total = 0
-        datos.map((dato) => {
+        datos.forEach((dato) => {
             total += dato.saldo
         })
         return (
