@@ -13,7 +13,7 @@ Añadir la variable de entorno C:\composer
 Para instalar las dependencias se ha de descargar el repositorio y:
 
 - Abrir el cmd en la raiz del respositorio.
-- Instalar las dependencias usando el comando: 'composer update'.
+- Instalar las dependencias usando los comandos: 'composer update' y 'yarn install'.
 - Una vez instaladas las dependencias, arrancar el servidor con el comando: 'php bin/console server:run'.
 
 ## Compilar con yarn
