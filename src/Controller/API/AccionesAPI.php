@@ -28,12 +28,8 @@ class AccionesAPI extends AbstractController
     public function acciones(Usuarios $usuarios, Acciones $acciones)
     {
         $request = Request::createFromGlobals();
-        $usuario = $request->headers->get('usuario');
 
-//        $infoUsuario = $usuarios->getUsuario($usr[1]);
-//        $resp = $acciones->getAcciones($infoUsuario['datos']['usuario']);
-
-        $resp = $acciones->getAcciones($usuario);
+        $resp = $acciones->getAcciones($request->headers->get('usuario'));
 
         return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
     }

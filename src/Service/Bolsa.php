@@ -33,13 +33,7 @@ class Bolsa
             $response['datos'] = [];
 
             foreach ($resp as $accion){
-                $elem = [];
-                $elem['id'] = $accion->getId();
-                $elem['valordia'] = $accion->getValordia();
-                $elem['codigoempresa'] = $accion->getCodigoempresa();
-                $elem['nombreempresa'] = $accion->getNombreempresa();
-
-                array_push($response['datos'], $elem);
+                array_push($response['datos'], $accion->jsonSerialize());
             }
 
         }

@@ -33,14 +33,7 @@ class Acciones
             $response['datos'] = [];
 
             foreach ($resp as $accion){
-                $elem = [];
-                $elem['id'] = $accion->getId();
-                $elem['titular'] = $accion->getTitular();
-                $elem['cantidad'] = $accion->getCantidad();
-                $elem['codigoempresa'] = $accion->getCodigoempresa();
-                $elem['nombreempresa'] = $accion->getNombreempresa();
-
-                array_push($response['datos'], $elem);
+                array_push($response['datos'], $accion->jsonSerialize());
             }
 
         }

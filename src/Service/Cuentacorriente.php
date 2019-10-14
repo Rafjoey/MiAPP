@@ -34,13 +34,7 @@ class Cuentacorriente
             $response['datos'] = [];
 
             foreach ($resp as $accion){
-                $elem = [];
-                $elem['id'] = $accion->getId();
-                $elem['titular'] = $accion->getTitular();
-                $elem['iban'] = $accion->getIban();
-                $elem['saldo'] = $accion->getSaldo();
-
-                array_push($response['datos'], $elem);
+                array_push($response['datos'], $accion->jsonSerialize());
             }
 
         }

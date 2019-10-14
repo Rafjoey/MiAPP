@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="acciones")
  * @ORM\Entity
  */
-class Acciones
+class Acciones implements JsonSerializable 
 {
     /**
      * @var int
@@ -127,5 +128,15 @@ class Acciones
     public function setNombreempresa(string $nombreempresa): void
     {
         $this->nombreempresa = $nombreempresa;
+    }
+
+    public function jsonSerialize() {
+        $elem = [];
+        $elem['id'] = $this->getId();
+        $elem['titular'] = $this->getTitular();
+        $elem['cantidad'] = $this->getCantidad();
+        $elem['codigoempresa'] = $this->getCodigoempresa();
+        $elem['nombreempresa'] = $this->getNombreempresa();
+        return $elem;
     }
 }

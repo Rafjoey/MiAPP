@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="cuentascorrientes", uniqueConstraints={@ORM\UniqueConstraint(name="IBAN", columns={"IBAN"})})
  * @ORM\Entity
  */
-class Cuentascorrientes
+class Cuentascorrientes implements JsonSerializable
 {
     /**
      * @var int
@@ -104,5 +105,14 @@ class Cuentascorrientes
     public function setSaldo(float $saldo): void
     {
         $this->saldo = $saldo;
+    }
+
+    public function jsonSerialize() {
+        $elem = [];
+        $elem['id'] = $this->getId();
+        $elem['titular'] = $this->getTitular();
+        $elem['iban'] = $this->getIban();
+        $elem['saldo'] = $this->getSaldo();
+        return $elem;
     }
 }

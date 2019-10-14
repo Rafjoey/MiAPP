@@ -10,7 +10,6 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
-    .addEntry('js/js', './assets/js/js.jsx')
     .addEntry('js/inicio', './assets/js/inicio.jsx')
     .addEntry('js/app', './assets/js/app.jsx')
     .addEntry('js/bootstrap.min', './assets/js/bootstrap.min.jsx')
