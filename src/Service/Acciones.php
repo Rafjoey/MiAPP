@@ -44,4 +44,28 @@ class Acciones
 
         return $response;
     }
+
+    public function updateAcciones($id, $cantidad){
+
+        $response = null;
+
+        try {
+            $mg = $this->managerRegistry->getManager();
+            $ingreso = $mg->getRepository(\App\Entity\Acciones::class)
+                ->findOneBy(['id' => $id]);
+
+            $ingreso->setCantidad($ingreso->getCantidad() + $cantidad);
+           
+            $mg->merge($ingreso);
+            $mg->flush();
+            
+            $response = $ingreso->jsonSerialize();
+        }
+        catch (Exception $exception) {
+            print_r($exception->getMessage()); // DEBUGGING
+            return $response;
+        }
+
+        return $response;
+    }
 }

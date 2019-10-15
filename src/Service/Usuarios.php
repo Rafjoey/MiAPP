@@ -32,13 +32,6 @@ class Usuarios
 
             $elem = [];
             $elem['usuario'] = $resp[0]->getUsuario();
-//            $elem['nombre'] = $resp[0]->getNombre();
-//            $elem['apellidos'] = $resp[0]->getApellidos();
-//            $elem['correo'] = $resp[0]->getCorreo();
-//            $elem['telefono'] = $resp[0]->getTelefono();
-//            $elem['direccion'] = $resp[0]->getDireccion();
-//            $elem['ciudad'] = $resp[0]->getCiudad();
-//            $elem['cp'] = $resp[0]->getCp();
 
             $response['userdata'] = $elem;
             $response['token'] = md5($usr);

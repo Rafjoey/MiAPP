@@ -33,4 +33,22 @@ class AccionesAPI extends AbstractController
 
         return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
     }
+
+    /**
+     * @Route("/acciones/{id}", name="updateAcciones", methods={"POST"})
+     * @param Acciones $acciones
+     * @return Response
+     */
+    public function updateAcciones(Acciones $acciones, int $id)
+    {
+        $request = Request::createFromGlobals();
+
+        $response = null;
+
+        $body = json_decode($request->getContent(), true);
+
+        $resp = $acciones->updateAcciones($id, $body['acciones']);
+
+        return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
+    }
 }

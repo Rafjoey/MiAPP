@@ -15,6 +15,7 @@ class Acciones extends React.Component {
         super(props)
         this.state = {
             cuentasCorrientes: props.cuentasCorrientes,
+            recargarCC: props.recargarCC,
             datos: [],
             empresas: [],
             hayAcciones: false,
@@ -22,7 +23,8 @@ class Acciones extends React.Component {
             isLoaded: false
         }
         this.maxAcciones = 0
-        this.ccEnUso = {}
+        this.ccEnUso = {iban: ''}        
+        this.restante = '-'
     }
 
     cargar() {
@@ -82,8 +84,7 @@ class Acciones extends React.Component {
 
     cambioCC(event, valorDia) {
         if (event.target.value !== '') {
-            let ccs = this.state.cuentasCorrientes
-            ccs.map((cc) => {
+            this.state.cuentasCorrientes.forEach((cc) => {
                 if (cc.iban === event.target.value) {
                     this.ccEnUso = cc
                     this.maxAcciones = Math.floor(cc.saldo / valorDia)
@@ -95,6 +96,7 @@ class Acciones extends React.Component {
                     document.getElementById('numAcciones').setAttribute('max', this.maxAcciones)
                     document.getElementById('customRange2').value = 1
                     document.getElementById('numAcciones').value = 1
+                    this.restante = restante
                 }
             })
         }
@@ -108,6 +110,7 @@ class Acciones extends React.Component {
             document.getElementById('numAcciones').setAttribute('max', 0)
             document.getElementById('customRange2').value = 1
             document.getElementById('numAcciones').value = ''
+            this.restante = '-'
         }
     }
 
@@ -115,6 +118,7 @@ class Acciones extends React.Component {
         let resto = (this.ccEnUso.saldo - (e.target.value * valorDia)).toFixed(2)
         document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + resto.toString() + '€'
         document.getElementById('numAcciones').value = e.target.value
+        this.restante = resto.toString()
     }
 
     cambioCompraManual(e, valorDia) {
@@ -123,6 +127,7 @@ class Acciones extends React.Component {
             document.getElementById('saldoRestante').innerText = 'Dinero restante: ' + resto.toString() + '€'
             document.getElementById('numAcciones').value = e.target.value
             document.getElementById('customRange2').value = e.target.value
+            this.restante = resto.toString()
         }
         else {
             document.getElementById('numAcciones').value = this.maxAcciones
@@ -176,13 +181,12 @@ class Acciones extends React.Component {
                 <div className={'row'}>
                     <strong className={'col'} id={'saldoRestante'} > Dinero restante: - </strong>
                     <button type={'button'} className={'btn btn-primary btn-sm mb-auto p-2'} id={'btnCompraDefinitiva'}
-                        onClick={(e) => this.finalizarCompra(e)}>
+                        data-dismiss="modal" aria-label="Close" onClick={() => this.finalizarCompra(accion, valorDia)}>
                         <i className={'fa fa-shopping-cart'} />
                         &nbsp;
                         Comprar
                     </button>
                 </div>
-
             </div>
         )
         ReactDOM.render(cabecera, document.getElementById('cabeceraModal'))
@@ -190,12 +194,41 @@ class Acciones extends React.Component {
         document.getElementById('customRange2').value = 0
     }
 
-    finalizarCompra(e) {
+    finalizarCompra(accion, valorDia) {
         let numAcciones = document.getElementById('numAcciones').value
-        console.log('Se van a comprar ' + numAcciones + ' acciones.')
-        console.log('Se van a usar la cc: ' + this.ccEnUso.iban)
-        this.ccEnUso = {}
-        this.maxAcciones = 0
+        
+        let dataCC = {
+            'inversion': parseInt(numAcciones) * parseInt(valorDia)
+        }
+        window.fetch('/cuentacorriente/' + this.ccEnUso.iban, {
+            method: 'POST',
+            body: JSON.stringify(dataCC)
+        }).then((res) => res.json())
+            .then(
+                () => {
+                    let dataAcciones = {
+                        'acciones': parseInt(numAcciones)
+                    }
+                    window.fetch('/acciones/' + accion.id, {
+                        method: 'POST',
+                        body: JSON.stringify(dataAcciones)
+                    }).then((res) => res.json())
+                        .then(
+                            () => {
+                                this.ccEnUso = {}
+                                this.maxAcciones = 0        
+                                this.restante = '-'
+                                this.state.recargarCC()
+                            },
+                            (error) => { // En caso de error.
+                                console.log(error)
+                            }
+                        )
+                },
+                (error) => { // En caso de error.
+                    console.log(error)
+                }
+            )
     }
 
     vender(accion, valorDia) {

@@ -19,7 +19,9 @@ class CC extends React.Component {
             datos: [],
             isLoaded: false
         }
+        this.recargarCC = this.recargarCC.bind(this)
     }
+
 
     cargar() {
         let header = { usuario }
@@ -30,12 +32,12 @@ class CC extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    ReactDOM.render(<TotalIngresos datos={result.datos} />, document.getElementById('totalIngresos'))
-                    ReactDOM.render(<Acciones cuentasCorrientes={result.datos} />, document.getElementById('acciones'))
                     this.setState({
                         datos: result.datos,
                         isLoaded: true
                     })
+                    ReactDOM.render(<TotalIngresos datos={result.datos} />, document.getElementById('totalIngresos'))
+                    ReactDOM.render(<Acciones cuentasCorrientes={result.datos} recargarCC={this.recargarCC} />, document.getElementById('acciones'))
                 },
                 (error) => {
                     this.setState({
@@ -44,6 +46,12 @@ class CC extends React.Component {
                     })
                 }
             )
+    }
+
+    recargarCC() {
+        ReactDOM.unmountComponentAtNode(document.getElementById('totalIngresos'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('acciones'))
+        this.cargar()
     }
 
     componentDidMount() {

@@ -32,4 +32,22 @@ class CuentacorrienteAPI extends AbstractController
 
         return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
     }
+
+    /**
+     * @Route("/cuentacorriente/{iban}", name="updateCuentacorriente", methods={"POST"})
+     * @param Cuentacorriente $cc
+     * @return Response
+     */
+    public function updateCC(Cuentacorriente $cc, string $iban)
+    {
+        $request = Request::createFromGlobals();
+
+        $response = null;
+
+        $body = json_decode($request->getContent(), true);
+
+        $resp = $cc->updateAcciones($iban, $body['inversion']);
+
+        return is_null($resp) ? ERR::send_error(__FUNCTION__) : API::send_json($resp);
+    }
 }

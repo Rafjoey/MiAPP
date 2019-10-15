@@ -45,4 +45,29 @@ class Cuentacorriente
 
         return $response;
     }
+    
+    public function updateAcciones($iban, $inversion){
+
+        $response = null;
+
+        try {
+            $mg = $this->managerRegistry->getManager();
+            $cc = $mg->getRepository(Cuentascorrientes::class)
+                ->findOneBy(['iban' => $iban]);
+
+            $cc->setSaldo($cc->getSaldo() - $inversion);
+           
+            $mg->merge($cc);
+            $mg->flush();
+            
+            $response = $cc->jsonSerialize();
+
+        }
+        catch (Exception $exception) {
+            print_r($exception->getMessage()); // DEBUGGING
+            return $response;
+        }
+
+        return $response;
+    }
 }

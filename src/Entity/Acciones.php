@@ -41,7 +41,7 @@ class Acciones implements JsonSerializable
      *
      * @ORM\Column(name="CANTIDAD", type="integer", nullable=false)
      */
-    private $cantidad = '0';
+    private $cantidad;
 
     /**
      * @var string
