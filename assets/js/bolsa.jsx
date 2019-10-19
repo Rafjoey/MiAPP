@@ -2,12 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import FuncionalidadAgregarValorDia from './agregarValorDia'
 import ChartLine from './chartLine'
-
-const cargando = (
-    <div className='spinner-border  text-primary' role='status'>
-        <span className='sr-only'> Cargando... </span>
-    </div>
-)
+import cargando from './cargando'
 
 class Bolsa extends React.Component {
     constructor(props) {
@@ -17,7 +12,6 @@ class Bolsa extends React.Component {
             primeraVez: true,
             isLoaded: false
         }
-        this.numeroEmpresas = props.numeroEmpresas
     }
 
     cargar() {
@@ -27,7 +21,6 @@ class Bolsa extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    ReactDOM.unmountComponentAtNode(document.getElementById('funcionalidadAgregarValorDia'))
                     ReactDOM.render(<FuncionalidadAgregarValorDia datos={result.datos} />, document.getElementById('funcionalidadAgregarValorDia'))
                     this.numeroEmpresas = result.datos.length
                     this.setState({

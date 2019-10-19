@@ -1,12 +1,7 @@
 import React from 'react'
+import cargando from './cargando'
 
 let LineChart = require("react-chartjs").Line
-
-const cargando = (
-    <div className='spinner-border  text-primary' role='status'>
-        <span className='sr-only'> Cargando... </span>
-    </div>
-)
 
 class ChartLine extends React.Component {
     constructor(props) {
@@ -14,9 +9,9 @@ class ChartLine extends React.Component {
         this.state = {
             datos: [],
             codigoempresa: props.codigoempresa,
+            numeroEmpresas: props.numeroEmpresas,
             isLoaded: false
         }
-        this.numeroEmpresas = props.numeroEmpresas
         this.codigoempresa = props.codigoempresa
     }
 
@@ -33,7 +28,7 @@ class ChartLine extends React.Component {
 
                     let cont = 0
                     let nLabels = 0
-                    let nInfo = result.datos.length / this.numeroEmpresas
+                    let nInfo = result.datos.length / this.state.numeroEmpresas
 
                     for (let i = 0; i < result.datos.length; i++) {
                         dataTmp.push(result.datos[i].valor)

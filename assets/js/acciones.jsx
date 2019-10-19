@@ -1,14 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ChartLine from './chartLine'
+import cargando from './cargando'
+
 
 let cookies = document.cookie.split(';')
 let usuario = cookies[1].split('=')[1]
-
-const cargando = (
-    <div className='spinner-border  text-primary' role='status'>
-        <span className='sr-only'> Cargando... </span>
-    </div>
-)
 
 class Acciones extends React.Component {
     constructor(props) {
@@ -137,8 +134,6 @@ class Acciones extends React.Component {
 
     comprar(accion, valorDia) {
         this.maxAcciones = 0
-        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
-        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
         let ccs = this.state.cuentasCorrientes
         let cabecera = <h5 key={'cabeceraComprarAcciones'}> Comprar acciones de {accion.nombreempresa} </h5>
         let opciones = []
@@ -232,8 +227,6 @@ class Acciones extends React.Component {
     }
 
     vender(accion, valorDia) {
-        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
-        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
         let cabecera = <h5 key={'cabeceraComprarAcciones'}> Vender acciones de {accion.nombreempresa} </h5>
         let contenido = (
             <div key={'contenidoComprarAcciones'}>
@@ -247,8 +240,6 @@ class Acciones extends React.Component {
     }
 
     cambiar(accion, valorDia) {
-        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
-        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
         let cabecera = <h5 key={'cabeceraComprarAcciones'}> Cambiar acciones de {accion.nombreempresa} </h5>
         let contenido = (
             <div key={'contenidoComprarAcciones'}>
@@ -262,8 +253,6 @@ class Acciones extends React.Component {
     }
 
     borrar(accion) {
-        ReactDOM.unmountComponentAtNode(document.getElementById('cabeceraModal'))
-        ReactDOM.unmountComponentAtNode(document.getElementById('contenidoModal'))
         let cabecera = <h5 key={'cabeceraComprarAcciones'}> Borrar acciones de {accion.nombreempresa} </h5>
         let contenido = (
             <div key={'contenidoComprarAcciones'}>

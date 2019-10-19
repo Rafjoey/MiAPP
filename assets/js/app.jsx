@@ -11,11 +11,9 @@ import FuncionalidadAgregarEmpresa from './agregarEmpresa'
 let cookies = document.cookie.split(';')
 let usuario = cookies[1].split('=')[1]
 
-let numeroEmpresas = 0
-
 ReactDOM.render(<NombreUsuario usuario={usuario} />, document.getElementById('nombreUsuario'))
 
-ReactDOM.render(<Bolsa numeroEmpresas={numeroEmpresas} />, document.getElementById('bolsa'))
+ReactDOM.render(<Bolsa />, document.getElementById('bolsa'))
 
 ReactDOM.render(<CC />, document.getElementById('cc'))
 
